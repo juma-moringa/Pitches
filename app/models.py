@@ -86,7 +86,7 @@ class Comments(db.Model):
 
     __tablename__ = 'comments'
 
-    # add columns
+    # adding columns
     id = db.Column(db. Integer, primary_key=True)
     opinion = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
@@ -118,7 +118,7 @@ class Category(db.Model):
     name = db.Column(db.String(255))
     description = db.Column(db.String(255))
 
-    # save pitches
+    # saving pitches
     def save_category(self):
         db.session.add(self)
         db.session.commit()
