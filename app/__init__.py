@@ -13,9 +13,11 @@ db = SQLAlchemy()
 photos = UploadSet("photos", IMAGES)
 
 def create_app(config_name):
+
     """
     This is a function that will initialize the Flask instance
     """
+    
     #instantiate Flask
 
     app = Flask(__name__)
@@ -31,7 +33,7 @@ def create_app(config_name):
     db.init_app(app)
 
     #initialize the uploads
-    
+
     configure_uploads(app,db)
 
     return app
