@@ -23,29 +23,46 @@ def index():
 
 
 #Route for adding a newly created pitch
-@main.route('/category/new-pitch/<int:id>', methods=['GET', 'POST'])
+@main.route('/pitch/newpitch',methods= ['POST','GET'])
 @login_required
-def new_pitch(id):
-    """
+def new_pitch():
+    pitch = PitchForm()
+    if pitch.validate_on_submit():
+        title = pitch.pitch_title.data
+        category = pitch.pitch_category.data
+        yourPitch = pitch.pitch_comment.data
 
-    New-pitch function that will  check Pitches form and fetch data from the fields
+        #update pitch instance
 
-    """
+        newPitch = Pitch(pitch_title = title,pitch_category = category,pitch_comment = yourPitch,user= current_user)
 
+        #save pitch
+        newPitch.save_pitch()
+        return redirect(url_for('.index'))
+
+    title = 'pitched pitch'
+    return render_template('pitchment.html',title = title,pitchform = pitch) 
+
+     #functions to display the pitches categories and information.
+@main.route('/category/pickup',methods= ['POST','GET'])
+def display_pickup_category():
+    pickupPitches = Pitch.get_pitches('pickup')
+    return render_template('display/pickup.html',pickupPitches = pickupPitches)    
+
+@main.route('/category/interview',methods= ['GET'])
+def display_interview_category():
+    interviewPitches = Pitch.get_pitches('interview')
+    return render_template('display/interview.html',interviewPitches = interviewPitches)
     
-    form = PitchForm()
-    category = Category.query.filter_by(id=id).first()
+@main.route('/category/product',methods= ['POST','GET'])
+def display_product_category():
+    productPitches = Pitch.get_pitches('product')
+    return render_template('display/prod.html',productPitches = productPitches)
 
-    if category is None:
-        abort(404)
-
-    if form.validate_on_submit():
-        content = form.content.data
-        new_pitch= Pitch(content=content, category_id = category.id, user_id = current_user.id)
-        new_pitch.save_pitch()
-        return redirect(url_for('.category', id=category.id))
-
-    return render_template('new_pitch.html', pitch_form=form, category=category)
+@main.route('/category/promotion',methods= ['POST','GET'])
+def display_promotion_category():
+    promotionPitches = Pitch.get_pitches('promotion')
+    return render_template('display/promo.html',promotionPitches = promotionPitches)
 
 
 @main.route('/categories/<int:id>')
@@ -96,6 +113,8 @@ def view_pitch(id):
     count_likes = Votes.query.filter_by(pitches_id=id, vote=1).all()
     count_dislikes = Votes.query.filter_by(pitches_id=id, vote=2).all()
     return render_template('view-pitch.html', pitches = pitches, comment = comment, count_likes=len(count_likes), count_dislikes=len(count_dislikes), category_id = id, categories=all_category)
+
+
 
 #adding a new comment
 @main.route('/write_comment/<int:id>', methods=['GET', 'POST'])

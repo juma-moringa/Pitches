@@ -2,6 +2,7 @@ from . import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import login_manager
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -20,9 +21,9 @@ class User(UserMixin,db.Model):
 
     __tablename__='users'
 
-    #create the columns
+    #creation of the columns
     id = db.Column(db.Integer,primary_key = True)
-    username = db.Column(db.String(255))
+    username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255),unique = True, index =True)
     password_hash = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255))
@@ -33,7 +34,7 @@ class User(UserMixin,db.Model):
     vote = db.relationship("Votes", backref="user", lazy = "dynamic")
 
 
-    # securing passwords
+    #  function for securing the users passwords
     @property
     def password(self):
         raise AttributeError('You can not read the password Attribute')
@@ -59,10 +60,20 @@ class Pitch(db.Model):
 
     __tablename__ = 'pitches'
 
+    # id = db.Column(db.Integer,primary_key = True)
+    # content = db.Column(db.String())
+    # category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
+    # user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
     id = db.Column(db.Integer,primary_key = True)
-    content = db.Column(db.String())
-    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
+    pitch_id = db.Column(db.Integer)
+    pitch_title = db.Column(db.String)
+    pitch_category = db.Column(db.String)
+    pitch_comment = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    upvotes = db.Column(db.Integer)
+    downvotes = db.Column(db.Integer)
     comment = db.relationship("Comments", backref="pitches", lazy = "dynamic")
     vote = db.relationship("Votes", backref="pitches", lazy = "dynamic")
 
@@ -75,15 +86,19 @@ class Pitch(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    @classmethod
-    def clear_pitches(cls):
-        Pitch.all_pitches.clear()
-
+    
     # display pitches
 
-    def get_pitches(id):
-        pitches = Pitch.query.filter_by(category_id=id).all()
+    @classmethod
+    def get_pitches(cls,category):
+        pitches = Pitch.query.filter_by(pitch_category=category).all()
         return pitches
+
+    @classmethod
+    def getPitchId(cls,id):
+        pitch = Pitch.query.filter_by(id=id).first()
+        return pitch
+
 
 
 

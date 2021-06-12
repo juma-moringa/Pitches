@@ -1,21 +1,77 @@
-{% extends 'base.html'%} 
-{% import 'macros.html' as macro %} 
-{% block content%}
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <h4 class="text-left">
-        <a class="btn btn-info" href="/add/category">
-          <span class="" aria-hidden="true"></span> Create a new Category </a>
-      </h4>
-      <ol class="">
-        {{ macro.displayCategoryList(categories) }}
-      </ol>
-    </div>
-    <div class="col-md-9">
-      <h2>Recently Added Pitches</h2>
-      {{macro.displayAllPitches(all_pitches)}}
+{% extends 'base.html'%}
+{% block content %}
+<div class="container-fluid">
+  <div class="jumbotron jumbotron-fluid" style="border-radius: 50%;background-color: rgb(108, 172, 247);">
+    <div class="container text-white text-center" >
+      <h2 class="card-title h1-responsive font-bold">Welcome to</br>Pitchmentation254
+
+      </h2>
+      <p class="lead">In life, you only have 60 seconds<br>
+        to impress someone. One minute can make <br>or break you. How do we
+        make sure that you use your One minute<br> to actually say something meaningful.</p>
+      <a class="btn btn-outline-white btn-md" href="{{url_for('main.new_pitch')}}" style="background-color: aliceblue;"><i class=""></i>Create a new Pitch</a>
     </div>
   </div>
+
+  <h3 class="text-center text-uppercase text-bold">Categories</h3>
+  <hr>
+
+  <div class="row ">
+    <div class="col-sm-6">
+      <div class=" card col-sm pt-2">
+        <div class="" style="text-align: center;">
+          <h3 class="">Pickup lines.</h3>
+          <hr>
+          <p>Not everybody has the same sense of humour, <br>
+            so we've picked some of the best funny chat up lines <br>
+            that will always bring a smile to a potential partners face. </p>
+          <a href="{{url_for('main.displayPickupCategory')}}" class="btn btn-default btn-center -center">
+            See Pitches</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class=" card col-sm mt-2">
+        <div class="" style="text-align: center;">
+          <h3>Interview Pitches.</h3>
+          <hr>
+          <p>A summary of how promotional pitches should look like.How they are structured. </p>
+          <a href="" class="btn btn-default btn-center -center">
+            See Pitches</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row ">
+    <div class="col-sm-6">
+      <div class=" card col-sm mt-2">
+        <div class="" style="text-align: center;">
+          <h3>Product Pitches.</h3>
+          <hr>
+          <p>Start Your Elevator Pitch With a Question<br> </p>
+          <a href="" class="btn btn-default btn-center -center">
+            See Pitches</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+      <div class=" card col-sm mt-2">
+        <div class="" style="text-align: center;">
+          <h3>Promotional Pitches.</h3>
+          <hr>
+          <p> When it absolutely, positively has to be there overnight,<br>For everything else, there's Mastercard</p>
+          <a href="" class="btn btn-default btn-center-info -center">
+            See Pitches</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-text-center py-3" style="text-align: center;"> © jaycreations 2021
+    </div>
+  </footer>
 </div>
+
 {% endblock %}

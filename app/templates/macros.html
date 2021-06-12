@@ -20,28 +20,34 @@
     {% endfor %}
 {% endmacro %}
 
-{% macro displayPitches(pitch_list) %} 
-{% for pitches in pitch_list %}
-<div class="col-md-12">
-    <div class="">
-        <div class="row">
-            <p>{{pitches.name|upper}}</p>
-            <div class="col-md-10 col-sm-12">
-                <h3>{{pitches.content}}</h3>
-                <h4>
-                    <span>
-                        <a href=" {{url_for('.view_pitch',id=pitches.id)}}">See Comments</a>
-                    </span>
-                </h4>
-                <a href=" {{url_for('.post_comment',id=pitches.id)}}">
-                    <h3>COMMENT</h3>
-                </a>
-            </div>
-        </div>
+{% macro displayPitches(pitches_list)%}
+{%for pitch in pitches_list%}   
+    <div class="row">
+        <div class="col-sm m-5">
+            <div class=" card col-sm mt-2">
+              <div class="well well-lg p-3" style="text-align: center;">
+                  <h3>{{pitch.pitch_title}}</h3>
+                  <hr>
+                  <p>{{pitch.pitch_comment|truncate(50)}}</p>
+                  <p>By : {{pitch.user.username}} </p>
+                  <p>Posted on: {{pitch.posted}}</p>
+                      <a href="/comment/{{pitch.id}}" class="btn btn-default btn-center -center">
+                      Comment</a>
+              </div>
+          </div>
+          </div>
     </div>
-</div>
-{% endfor %} 
-{% endmacro %} 
+{%endfor%}
+{%endmacro%}
+
+<!-- {%macro displayComments(comments_list)%}
+    {%for comment in comments_list%}
+        <div class="col-md-12">
+            <p>{{comment.comment}}</p>
+            <h5>By : {{comment.user.username}}</h5>
+        </div>
+    {%endfor%}
+{%endmacro%} -->
 
 {% macro displaySpecificPitch(specific_pitch_list) %} 
 {% for comment in specific_pitch_list %}

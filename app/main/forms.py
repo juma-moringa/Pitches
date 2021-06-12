@@ -3,12 +3,6 @@ from wtforms.validators import Required
 from wtforms import StringField, TextAreaField, SubmitField, SelectField
 from flask_wtf import FlaskForm
 
-class PitchForm(FlaskForm):
-    """
-    Pitch Class to create a wtf-form for creating a pitch
-    """
-    content = TextAreaField('INPUT YOUR PITCH')
-    submit = SubmitField('SUBMIT')
 
 class CategoryForm(FlaskForm):
     """
@@ -21,6 +15,17 @@ class CommentForm(FlaskForm):
     """
      Comment Class to create a wtf-form for creating a pitch
     """
-    Comment = TextAreaField('WRITE A COMMENT')
-    submit = SubmitField('SUBMIT')
+    Comment = TextAreaField('Write a your comment here...')
+    submit = SubmitField('POST')
+
+class PitchForm(FlaskForm):
+    """
+    Pitch Class to create a wtf-form for creating a pitch
+    """
+    pitch_title = StringField('Your Pitch title',validators=[Required()])
+    pitch_category = SelectField('Pitch Categories', choices = [('Select the category','Select the pitch category'),('pickup','Pickup-lines'),('interview', 'Interview'), ('product', 'Product'),('promotion','Promotion')], validators=[Required()])
+    pitch_comment = TextAreaField('Your Pitch')
+    submit = SubmitField('Post Pitch')
+
+
 
