@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <h4>{{pitch.user.username}}</h4>
                 <p>{{pitch.content}}</p>
-                <p><a class="btn btn-info" href="{{url_for('.post_comment',id=pitch.id)}}"> Add your comment</a></p>
+                <p><a class="btn btn-info" href="{{url_for('.post_comment',id=pitch.id)}}"> Upload a comment </a></p>
             </div>
         </div>
     {% endfor %}
@@ -29,10 +29,10 @@
                   <h3>{{pitch.pitch_title}}</h3>
                   <hr>
                   <p>{{pitch.pitch_comment|truncate(50)}}</p>
-                  <p>By : {{pitch.user.username}} </p>
+                  <p> Posted by : {{pitch.user.username}} </p>
                   <p>Posted on: {{pitch.posted}}</p>
                       <a href="/comment/{{pitch.id}}" class="btn btn-default btn-center -center">
-                      Comment</a>
+                       Upload a Comment</a>
               </div>
           </div>
           </div>
@@ -40,16 +40,16 @@
 {%endfor%}
 {%endmacro%}
 
-<!-- {%macro displayComments(comments_list)%}
+{%macro displayComments(comments_list)%}
     {%for comment in comments_list%}
-        <div class="col-md-12">
+        <div class="col-md-8">
             <p>{{comment.comment}}</p>
             <h5>By : {{comment.user.username}}</h5>
         </div>
     {%endfor%}
-{%endmacro%} -->
+{%endmacro%}
 
-{% macro displaySpecificPitch(specific_pitch_list) %} 
+<!-- {% macro displaySpecificPitch(specific_pitch_list) %} 
 {% for comment in specific_pitch_list %}
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
     <hr>
@@ -58,4 +58,4 @@
 </div>
 {% endfor %} 
 {% endmacro %}
-
+ -->
