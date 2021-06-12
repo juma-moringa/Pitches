@@ -1,0 +1,57 @@
+{% macro displayCategoryList(category_list) %} 
+    {% for category in category_list %}
+    
+        <li><a href="{{url_for('.category',id=category.id)}}">
+            {{category.name|upper}}
+        </a>
+        </li>
+    {% endfor %} 
+{% endmacro %}
+
+{% macro displayAllPitches(pitches) %}
+    {% for pitch in pitches %}
+        <div class="row my-pitches">
+            <div class="col-md-12">
+                <h4>{{pitch.user.username}}</h4>
+                <p>{{pitch.content}}</p>
+                <p><a class="btn btn-info" href="{{url_for('.post_comment',id=pitch.id)}}"> Add your comment</a></p>
+            </div>
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro displayPitches(pitch_list) %} 
+{% for pitches in pitch_list %}
+<div class="col-md-12">
+    <div class="">
+        <div class="row">
+            <p>{{pitches.name|upper}}</p>
+            <div class="col-md-10 col-sm-12">
+                <h3>{{pitches.content}}</h3>
+                <h4>
+                    <span>
+                        <a href=" {{url_for('.view_pitch',id=pitches.id)}}">See Comments</a>
+                    </span>
+                </h4>
+                <a href=" {{url_for('.post_comment',id=pitches.id)}}">
+                    <h3>COMMENT</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endfor %} 
+{% endmacro %} 
+
+{% macro displaySpecificPitch(specific_pitch_list) %} 
+{% for comment in specific_pitch_list %}
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+    <hr>
+    <p>{{comment.opinion}} </p>
+    <p>{{comment.time_posted.strftime('%Y/%m/%d || %r') }}</p>
+</div>
+{% endfor %} 
+{% endmacro %}
+
