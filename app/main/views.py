@@ -15,7 +15,7 @@ def index():
     """
 
     all_category = Category.get_categories()
-    all_pitches = Pitch.query.order_by('-id').all()
+    all_pitches = Pitch.query.order_by('id').all()
     print(all_pitches)
 
     title = 'Pitchmentation254'
@@ -102,7 +102,7 @@ def view_pitch(id):
 @login_required
 def post_comment(id):
     """ 
-    
+
     Function to post a newly created comments 
     """
     

@@ -1,6 +1,15 @@
 from . import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from . import login_manager
+
+@login_manager.user_loader
+def load_user(user_id):
+    """
+    @login_manager.user_loader Passes in a user_id to this function
+    Function queries the database and gets a user's id as a response
+    """
+    return User.query.get(int(user_id))
 
 
 # 1. USER CLASS
