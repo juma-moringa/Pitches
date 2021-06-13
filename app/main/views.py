@@ -160,7 +160,7 @@ def viewPitch(id):
 
 @main.route('/like/<int:id>',methods = ['POST','GET'])
 @login_required
-def like(pitch_id):
+def like(id):
     get_pitches = Upvote.get_upvotes(id)
     valid_string = f'{current_user.id}:{id}'
     for pitch in get_pitches:
@@ -176,7 +176,7 @@ def like(pitch_id):
 
 @main.route('/dislike/<int:id>',methods = ['POST','GET'])
 @login_required
-def dislike(pitch_id):
+def dislike(id):
     pitch = Downvote.get_downvotes(id)
     valid_string = f'{current_user.id}:{id}'
     for p in pitch:

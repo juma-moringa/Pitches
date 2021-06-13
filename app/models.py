@@ -100,7 +100,7 @@ class Pitch(db.Model):
 # 3. CLASS COMMENT
 class Comments(db.Model):
     """
-    Class comment is model for each pitch 
+    Comments Class comment is model for each pitch 
     """
 
     __tablename__ = 'comments'
