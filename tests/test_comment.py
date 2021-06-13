@@ -1,15 +1,26 @@
 import unittest
-from app.models import User, Comments
-from app import db
+from app.models import Comments
 
-class TestPitchModel(unittest.TestCase):
 
-  def setUp(self):
-    self.current_user = User(username = 'jay', password = 'unclejj', email = 'jay@yahoo.com')
-  
-  def tearDown(self):
-    db.session.delete(self)
-    User.query.commit()
+class CommentModelTest(unittest.TestCase):
+    """
+    Test Class to test the behaviour of the Comment class
+    """
 
-  def test_instance(self):
-    self.assertTrue(isinstance(self.new_comment,Comments))
+    def setUp(self):
+        """
+        Set up method that will run before every Test
+        """
+        self.comment= Comments(opinion = 'testing testing')
+
+
+    def tearDown(self):
+        Comments.query.delete()
+
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.comment, Comments))
+
+
+    def test_check_instance_variables(self):
+        self.assertEquals(self.comment.opinion,'testing testing')
