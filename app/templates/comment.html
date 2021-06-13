@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+{% import 'macros.html' as macro %}
+{% block content %}
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="pt-3">Your Pitches</h3>
+                <hr>
+                <p>Title : {{pitch.pitch_title}}</p>
+                <p>Details : {{pitch.pitch_comment}}</p>
+                <a href="{{url_for('main.dislike',id=pitch.id)}}" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Like
+                </a>
+                <a href="{{url_for('main.dislike', id=pitch.id)}}" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-thumbs-down"></span> Dislike
+                </a>
+            </div>
+            <div class="col-md-4">
+                <h3 class="pt-3">Comments</h3>
+                <hr>
+                {% if current_user.is_authenticated %}
+                {{ wtf.quick_form(commentForm) }}
+                {%endif%}
+
+            </div>
+            <div class="col-md-4">
+                <h3>Display comments</h3>
+                {{macro.displayComments(comments)}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

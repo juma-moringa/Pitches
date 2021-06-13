@@ -1,77 +1,82 @@
 {% extends 'base.html'%}
 {% block content %}
-<div class="container-fluid">
-  <div class="jumbotron jumbotron-fluid" style="border-radius: 50%;background-color: rgb(108, 172, 247);">
-    <div class="container text-white text-center" >
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+<div class="container-fluid" style="font-family: 'Caveat', cursive; font-size: 1.5em;">
+  <div style="margin-top:50px; padding-top:50px;" class="container-fluid text-sm-center p-5 bg-info text-white " style="border-radius: 5%;background-color: rgb(72, 150, 240);">
+    <div class="container text-white text-center">
       <h2 class="card-title h1-responsive font-bold">Welcome to</br>Pitchmentation254
 
       </h2>
       <p class="lead">In life, you only have 60 seconds<br>
         to impress someone. One minute can make <br>or break you. How do we
-        make sure that you use your One minute<br> to actually say something meaningful.</p>
-      <a class="btn btn-outline-white btn-md" href="{{url_for('main.new_pitch')}}" style="background-color: aliceblue;"><i class=""></i>Create a new Pitch</a>
+        make sure that you use your One minute<br> to actually say something meaningful.You can do so at a touch of a
+        button.</p>
+      <a class="btn btn-info-white btn-md" href="{{url_for('main.new_pitch')}}" style="background-color: aliceblue;"><i
+          class=""></i>Create a new Pitch</a>
     </div>
   </div>
 
   <h3 class="text-center text-uppercase text-bold">Categories</h3>
   <hr>
+  <div class="container-fluid">
+    <div class="row ">
+      <div class="col-sm-6">
+        <div class="panel-group">
+          <div class="panel-body" style="text-align: center;">
+            <h3 class="" style="color: rgb(7, 76, 136);">Pickup lines.</h3>
+            <hr>
+            <p class="panel-body">Not everybody has the same sense of humour, <br>
+              so we've picked some of the best funny chat up lines <br>
+              that will always bring a smile to a potential partners face. </p>
+            <a href="{{url_for('main.display_pickup_category')}}" class="btn btn-info btn-center -center">
+              See Pitches</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="panel-group">
+          <div class="panel-body" style="text-align: center;">
+            <h3 style="color: rgb(7, 76, 136);">Interviews Pitches.</h3>
+            <hr>
+            <p class="panel-body">A summary of how promotional pitches should look like.How they are structured. </p>
+            <a href="{{url_for('main.display_interview_category')}}" class="btn btn-info btn-center-center">
+              See Pitches</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="row ">
-    <div class="col-sm-6">
-      <div class=" card col-sm pt-2">
-        <div class="" style="text-align: center;">
-          <h3 class="">Pickup lines.</h3>
-          <hr>
-          <p>Not everybody has the same sense of humour, <br>
-            so we've picked some of the best funny chat up lines <br>
-            that will always bring a smile to a potential partners face. </p>
-          <a href="{{url_for('main.display_pickup_category')}}" class="btn btn-default btn-center -center">
-            See Pitches</a>
+    <div class="row ">
+      <div class="col-sm-6">
+        <div class="panel-group">
+          <div class="panel-body"style="text-align: center;">
+            <h3 style="color: rgb(7, 76, 136);">Product Pitches.</h3>
+            <hr>
+            <p class="panel-body">Start Your Elevator Pitch With a Question<br> </p>
+            <a href="{{url_for('main.display_product_category')}}" class="btn btn-info btn-center -center">
+              See Pitches</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-sm-6">
+        <div class="panel-group">
+          <div class="panel-body"style="text-align: center;">
+            <h3 style="color: rgb(7, 76, 136);">Promotional Pitches.</h3>
+            <hr>
+            <p class="panel-body"> When it absolutely, positively has to be there overnight,<br>For everything else, there's Mastercard</p>
+            <a href="{{url_for('main.display_promotion_category')}}" class="btn btn-info btn-center-info -center">
+              See Pitches</a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-6">
-      <div class=" card col-sm mt-2">
-        <div class="" style="text-align: center;">
-          <h3>Interviews Pitches.</h3>
-          <hr>
-          <p>A summary of how promotional pitches should look like.How they are structured. </p>
-          <a href="{{url_for('main.display_interviews_category')}}" class="btn btn-default btn-center -center">
-            See Pitches</a>
-        </div>
+    <footer>
+      <div class="footer-text-center py-3" style="text-align: center;"> © jaycreations 2021
       </div>
-    </div>
+    </footer>
   </div>
-
-  <div class="row ">
-    <div class="col-sm-6">
-      <div class=" card col-sm mt-2">
-        <div class="" style="text-align: center;">
-          <h3>Product Pitches.</h3>
-          <hr>
-          <p>Start Your Elevator Pitch With a Question<br> </p>
-          <a href="{{url_for('main.display_product_category')}}" class="btn btn-default btn-center -center">
-            See Pitches</a>
-        </div>
-      </div>
-
-    </div>
-    <div class="col-sm-6">
-      <div class=" card col-sm mt-2">
-        <div class="" style="text-align: center;">
-          <h3>Promotional Pitches.</h3>
-          <hr>
-          <p> When it absolutely, positively has to be there overnight,<br>For everything else, there's Mastercard</p>
-          <a href="{{url_for('main.display_promotion_category')}}" class="btn btn-default btn-center-info -center">
-            See Pitches</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <footer>
-    <div class="footer-text-center py-3" style="text-align: center;"> © jaycreations 2021
-    </div>
-  </footer>
 </div>
 
 {% endblock %}

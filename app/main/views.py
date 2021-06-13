@@ -3,17 +3,15 @@ from flask_login import login_required, current_user
 from . forms import PitchForm, CommentForm, CategoryForm
 from .import main
 from .. import db
-from ..models import User, Pitch, Comments,Category, Votes
+from ..models import User, Pitch, Comments,Category, Votes,Upvote,Downvote
 
 #display categories on the landing page
 @main.route('/')
 def index():
     """
-
     View root page function that returns index page
 
     """
-
     all_category = Category.get_categories()
     all_pitches = Pitch.query.order_by('id').all()
     print(all_pitches)
@@ -96,80 +94,100 @@ def new_category():
 
 
 #view single pitch with its comments
-@main.route('/view-pitch/<int:id>', methods=['GET', 'POST'])
+@main.route('/comment/<int:id>',methods= ['POST','GET'])
 @login_required
-def view_pitch(id):
-    """
-    View_function is a function that returns a single pitch for a comment to be added
-    """
-    all_category = Category.get_categories()
-    pitches = Pitch.query.get(id)
-    
+def viewPitch(id):
+    onepitch = Pitch.getPitchId(id)
+    comments = Comments.get_comments(id)
 
-    if pitches is None:
-        abort(404)
-    
-    comment = Comments.get_comments(id)
-    count_likes = Votes.query.filter_by(pitches_id=id, vote=1).all()
-    count_dislikes = Votes.query.filter_by(pitches_id=id, vote=2).all()
-    return render_template('view-pitch.html', pitches = pitches, comment = comment, count_likes=len(count_likes), count_dislikes=len(count_dislikes), category_id = id, categories=all_category)
+    if request.args.get("like"):
+        onepitch.likes = onepitch.likes + 1
 
+        db.session.add(onepitch)
+        db.session.commit()
 
+        return redirect("/comment/{pitch_id}".format(pitch_id=category.id))
 
-#adding a new comment
-@main.route('/write_comment/<int:id>', methods=['GET', 'POST'])
-@login_required
-def post_comment(id):
-    """ 
+    elif request.args.get("dislike"):
+        onepitch.dislikes = onepitch.dislikes + 1
 
-    Function to post a newly created comments 
-    """
-    
-    form = CommentForm()
-    title = 'Update comment'
-    pitches = Pitch.query.filter_by(id=id).first()
+        db.session.add(onepitch)
+        db.session.commit()
 
-    if pitches is None:
-         abort(404)
+        return redirect("/comment/{pitch_id}".format(pitch_id=category.id))
 
-    if form.validate_on_submit():
-        opinion = form.opinion.data
-        new_comment = Comments(opinion = opinion, user_id = current_user.id, pitches_id = pitches.id)
-        new_comment.save_comment()
-        return redirect(url_for('.view_pitch', id = pitches.id))
+    commentForm = CommentForm()
+    if commentForm.validate_on_submit():
+        opinion = commentForm.opinion.data
 
-    return render_template('post_comment.html', comment_form = form, title = title)
+        newComment = Comments(opinion = opinion,user = current_user,pitches_id= id)
 
+        newComment.save_comment()
+
+    return render_template('comment.html',commentForm = commentForm,comments = comments,pitch = onepitch)
 
 #Routes for liking/dislike pitches
-@main.route('/pitch/upvote/<int:id>&<int:vote_type>')
-@login_required
-def upvote(id,vote_type):
-    """
-    View function that adds one to the vote_number column in the table
-    """
-    # Query for  the user
-    votes = Votes.query.filter_by(user_id=current_user.id).all()
-    # print(f'The new vote is {votes}')
-    to_str=f'{vote_type}:{current_user.id}:{id}'
-    # print(f'The current vote is {to_str}')
+# @main.route('/pitch/upvote/<int:id>&<int:vote_type>')
+# @login_required
+# def upvote(id,vote_type):
+#     """
+#     View function that adds one to the vote_number column in the table
+#     """
+#     # Query for  the user
+#     votes = Votes.query.filter_by(user_id=current_user.id).all()
+#     # print(f'The new vote is {votes}')
+#     to_str=f'{vote_type}:{current_user.id}:{id}'
+#     # print(f'The current vote is {to_str}')
 
-    if not votes:
-        new_vote = Votes(vote=vote_type, user_id=current_user.id, pitches_id=id)
-        new_vote.save_vote()
+#     if not votes:
+#         new_vote = Votes(vote=vote_type, user_id=current_user.id, pitches_id=id)
+#         new_vote.save_vote()
     
-        # print('you have already votted')
+#         # print('you have already votted')
 
-    for vote in votes:
-        if f'{vote}' == to_str:
-            # print('votting can only be done once')
-            break
-        else:   
-            new_vote = Votes(vote=vote_type, user_id=current_user.id, pitches_id=id)
-            new_vote.save_vote()
-            # print('You have successfully votted')
-            break
+#     for vote in votes:
+#         if f'{vote}' == to_str:
+#             # print('votting can only be done once')
+#             break
+#         else:   
+#             new_vote = Votes(vote=vote_type, user_id=current_user.id, pitches_id=id)
+#             new_vote.save_vote()
+#             # print('You have successfully votted')
+#             break
 
-    return redirect(url_for('.view_pitch', id=id))
+#     return redirect(url_for('.view_pitch', id=id))
+
+
+@main.route('/like/<int:id>',methods = ['POST','GET'])
+@login_required
+def like(pitch_id):
+    get_pitches = Upvote.get_upvotes(id)
+    valid_string = f'{current_user.id}:{id}'
+    for pitch in get_pitches:
+        to_str = f'{pitch}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('main.index',id=id))
+        else:
+            continue
+    new_vote = Upvote(user = current_user, pitch_id=id)
+    new_vote.save()
+    return redirect(url_for('main.index',id=id))
+
+@main.route('/dislike/<int:id>',methods = ['POST','GET'])
+@login_required
+def dislike(pitch_id):
+    pitch = Downvote.get_downvotes(id)
+    valid_string = f'{current_user.id}:{id}'
+    for p in pitch:
+        to_str = f'{p}'
+        print(valid_string+" "+to_str)
+        if valid_string == to_str:
+            return redirect(url_for('main.index',id=id))
+        else:
+            continue
+    new_downvote = Downvote(username = current_user, pitch_id=id)
+    new_downvote.save()
+    return redirect(url_for('main.index',id = id))    
 
 
