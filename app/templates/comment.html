@@ -2,11 +2,13 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 {% import 'macros.html' as macro %}
 {% block content %}
-<div>
-    <div class="container">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+<div class="">
+    <div class="container" style="font-family: 'Caveat', cursive; font-size: 1.5em; border-radius: 50%;">
         <div class="row">
             <div class="col-md-4">
-                <h3 class="pt-3">Your Pitches</h3>
+                <h3 class="pt-3">Pitched Pitches</h3>
                 <hr>
                 <p>Title : {{pitch.pitch_title}}</p>
                 <p>Details : {{pitch.pitch_comment}}</p>

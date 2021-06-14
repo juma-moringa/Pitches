@@ -2,14 +2,16 @@
 {% import 'macros.html' as macro %}
 
 {%block content%}
-<div class="jumbotron jumbotron-fluid">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+<div class="jumbotron jumbotron-fluid" style="font-family: 'Caveat', cursive; font-size: 1.5em; border-radius: 50%;">
   <div class="container text-center">
     <h2 class="card-title h1-responsive font-bold"> List of Pickup Pitches</h2>
   </div>
 </div>
 <hr>
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-4" class="card-body h2-responsive font-bold">
     {{macro.displayPitches(pickupPitches)}}
   </div>
 </div>
