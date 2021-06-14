@@ -4,7 +4,7 @@
 Juma Allan.
 
 ## Description
-This is a pitch application or website that allows a user to view pitches in any category shown. Also, a user can comment on a pitch in any category and vote in any catecory for the pitch a user likes and a user can also create a pitch for any category they want to create in.
+Pitchmentation254 is a Pitch(pitches) application/website that allows a user to view pitches in categories.The user is also able to comment on a pitch in the categories given and also show intrest or dislike in the votes section  of the pitches. 
 
 ## Prerequisites
 You need the following before you start working on this project locally ;
@@ -37,6 +37,7 @@ In your terminal, run the following commands;
 
 ### Live Site
 View [live](https://pitchmentation254.herokuapp.com/).
+
 ## Enjoy :)
 @jaycreations-2021
 ### Licence
