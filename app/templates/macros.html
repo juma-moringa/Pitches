@@ -1,53 +1,55 @@
-{% macro displayCategoryList(category_list) %} 
-    {% for category in category_list %}
-    
-        <li><a href="{{url_for('.category',id=category.id)}}">
-            {{category.name|upper}}
-        </a>
-        </li>
-    {% endfor %} 
+{% macro displayCategoryList(category_list) %}
+{% for category in category_list %}
+
+<li><a href="{{url_for('.category',id=category.id)}}">
+        {{category.name|upper}}
+    </a>
+</li>
+{% endfor %}
 {% endmacro %}
 
 {% macro displayAllPitches(pitches) %}
-    {% for pitch in pitches %}
-        <div class="row my-pitches">
-            <div class="col-md-12">
-                <h4>{{pitch.user.username}}</h4>
-                <p>{{pitch.content}}</p>
-                <p><a class="btn btn-info" href="{{url_for('.post_comment',id=pitch.id)}}"> Upload a comment </a></p>
-            </div>
-        </div>
-    {% endfor %}
+{% for pitch in pitches %}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+<div class="row my-pitches" style="font-family: 'Caveat', cursive; font-size: 1.5em;">
+    <div class="col-md-12">
+        <h4>{{pitch.user.username}}</h4>
+        <p>{{pitch.content}}</p>
+        <p><a class="btn btn-info" href="{{url_for('.post_comment',id=pitch.id)}}"> Upload a comment </a></p>
+    </div>
+</div>
+{% endfor %}
 {% endmacro %}
 
 {% macro displayPitches(pitches_list)%}
-{%for pitch in pitches_list%}   
-    <div class="row">
-        <div class="col-sm m-5">
-            <div class=" card col-sm mt-2">
-              <div class="well well-lg p-3" style="text-align: center;">
-                  <h3>{{pitch.pitch_title}}</h3>
-                  <hr>
-                  <p>{{pitch.pitch_comment|truncate(50)}}</p>
-                  <p> Posted by : {{pitch.user.username}} </p>
-                  <p>Posted on: {{pitch.posted}}</p>
-                      <a href="/comment/{{pitch.id}}" class="btn btn-default btn-center -center">
-                       Upload a Comment</a>
-              </div>
-          </div>
-          </div>
+{%for pitch in pitches_list%}
+<div class="row">
+    <div class="col-sm m-5">
+        <div class=" card col-sm mt-2">
+            <div class="well well-lg p-3" style="text-align: center;">
+                <h3>{{pitch.pitch_title}}</h3>
+                <hr>
+                <p>{{pitch.pitch_comment|truncate(50)}}</p>
+                <p> Posted by : {{pitch.user.username}} </p>
+                <p>Posted on: {{pitch.posted}}</p>
+                <a href="/comment/{{pitch.id}}" class="btn btn-default btn-center -center">
+                    Upload a Comment</a>
+            </div>
+        </div>
     </div>
-    
+</div>
+
 {%endfor%}
 {%endmacro%}
 
 {%macro displayComments(comments_list)%}
-    {%for comment in comments_list%}
-        <div class="col-md-8">
-            <p>{{comment.opinion}}</p>
-            <h5>By : {{comment.user.username}}</h5>
-        </div>
-    {%endfor%}
+{%for comment in comments_list%}
+<div class="col-md-8">
+    <p>{{comment.opinion}}</p>
+    <h5>By : {{comment.user.username}}</h5>
+</div>
+{%endfor%}
 {%endmacro%}
 
 <!-- {% macro displaySpecificPitch(specific_pitch_list) %} 

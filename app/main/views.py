@@ -126,37 +126,6 @@ def viewPitch(id):
 
     return render_template('comment.html',commentForm = commentForm,comments = comments,pitch = onepitch)
 
-#Routes for liking/dislike pitches
-# @main.route('/pitch/upvote/<int:id>&<int:vote_type>')
-# @login_required
-# def upvote(id,vote_type):
-#     """
-#     View function that adds one to the vote_number column in the table
-#     """
-#     # Query for  the user
-#     votes = Votes.query.filter_by(user_id=current_user.id).all()
-#     # print(f'The new vote is {votes}')
-#     to_str=f'{vote_type}:{current_user.id}:{id}'
-#     # print(f'The current vote is {to_str}')
-
-#     if not votes:
-#         new_vote = Votes(vote=vote_type, user_id=current_user.id, pitches_id=id)
-#         new_vote.save_vote()
-    
-#         # print('you have already votted')
-
-#     for vote in votes:
-#         if f'{vote}' == to_str:
-#             # print('votting can only be done once')
-#             break
-#         else:   
-#             new_vote = Votes(vote=vote_type, user_id=current_user.id, pitches_id=id)
-#             new_vote.save_vote()
-#             # print('You have successfully votted')
-#             break
-
-#     return redirect(url_for('.view_pitch', id=id))
-
 
 @main.route('/like/<int:id>',methods = ['POST','GET'])
 @login_required
