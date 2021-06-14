@@ -24,7 +24,9 @@
 
 {% macro displayPitches(pitches_list)%}
 {%for pitch in pitches_list%}
-<div class="row">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+<div class="row" style="font-family: 'Caveat', cursive; font-size: 1.5em;">
     <div class="col-sm m-5">
         <div class=" card col-sm mt-2">
             <div class="well well-lg p-3" style="text-align: center;">
@@ -45,7 +47,9 @@
 
 {%macro displayComments(comments_list)%}
 {%for comment in comments_list%}
-<div class="col-md-8">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+<div class="col-md-8" style="font-family: 'Caveat', cursive; font-size: 1.5em;">
     <p>{{comment.opinion}}</p>
     <h5>By : {{comment.user.username}}</h5>
 </div>
