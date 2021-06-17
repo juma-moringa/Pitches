@@ -12,7 +12,7 @@ You need the following before you start working on this project locally ;
 1. Python version 3.8
 2. Flask
 3. Pip
-4. Virtual Environment(venv)
+4. Virtual Environment(venv)- which is activated by typing the following command on your terminal :( source/bin/activate)
 5. A text editor 
 
 ## Project SetUp
